@@ -56,11 +56,13 @@
                 ></TextView>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox">
                 <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox"
+
                     android:hint="john Doe"
                     android:inputType="textCapWords"
                     android:textColor="@color/black"
@@ -70,6 +72,7 @@
                 </androidx.appcompat.widget.AppCompatEditText>
             </com.google.android.material.textfield.TextInputLayout>
             <Button
+                android:id="@+id/btn_start"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="start"
