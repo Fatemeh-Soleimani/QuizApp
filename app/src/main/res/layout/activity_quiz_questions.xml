@@ -39,7 +39,7 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:max="9"
+            android:max="10"
             android:minHeight="50dp"
             android:indeterminate="false"
             android:progress="0"></ProgressBar>
@@ -52,6 +52,62 @@
             android:gravity="center"
             tools:text="0/10"></TextView>
     </LinearLayout>
+    <TextView
+        android:id="@+id/option_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="#7A8089"
+        android:background="@drawable/default_option_bg"
+        tools:text="Apple"></TextView>
+    <TextView
+        android:id="@+id/option_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="#7A8089"
+        android:background="@drawable/default_option_bg"
+        tools:text="Apple"></TextView>
+    <TextView
+    android:id="@+id/option_three"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    android:layout_margin="10dp"
+    android:gravity="center"
+    android:textSize="18sp"
+    android:textColor="#7A8089"
+    android:background="@drawable/default_option_bg"
+    tools:text="Apple"></TextView>
+    <TextView
+    android:id="@+id/option_four"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp"
+    android:layout_margin="10dp"
+    android:gravity="center"
+    android:textSize="18sp"
+    android:textColor="#7A8089"
+    android:background="@drawable/default_option_bg"
+    tools:text="Apple"></TextView>
+
+    <Button
+        android:id="@+id/submitButton"
+        android:text="Submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:padding="15dp"></Button>
 
 </LinearLayout>
 </ScrollView>
