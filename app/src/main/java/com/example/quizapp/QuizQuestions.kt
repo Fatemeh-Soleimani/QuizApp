@@ -1,5 +1,6 @@
 package com.example.quizapp
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import kotlin.reflect.typeOf
 
@@ -18,6 +20,10 @@ class QuizQuestions : AppCompatActivity(),View.OnClickListener {
     private var currentindex:Int = 1
     private var questionsList:ArrayList<Question>?= null
     private var mSelectedOption:Int = 0
+
+    private var mUserName:String?=null
+    private var mCorrectAnswer:Int=0
+//    private var mTotalQuestions:Int=questionsList!!.size
 
     private var tvQuestion:TextView?= null
     private var ivImage:ImageView ?=null
@@ -33,7 +39,7 @@ class QuizQuestions : AppCompatActivity(),View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_questions)
 
-
+        mUserName= intent.getStringExtra(constants.USER_NAME)
 
 
         tvQuestion=findViewById(R.id.tv_question)
@@ -63,6 +69,7 @@ class QuizQuestions : AppCompatActivity(),View.OnClickListener {
     }
 
     private fun setQuestion() {
+        defaultOptionView()
         val question: Question = questionsList!![currentindex - 1]
 
         tvQuestion?.text = question.question
@@ -84,6 +91,7 @@ class QuizQuestions : AppCompatActivity(),View.OnClickListener {
     }
 
     private fun defaultOptionView(){
+
         val options=ArrayList<TextView>()
         tvOption1?.let { options.add(0,it) }
         tvOption2?.let { options.add(1,it) }
@@ -123,7 +131,63 @@ class QuizQuestions : AppCompatActivity(),View.OnClickListener {
                 tvOption4?.let {
                     selectedOptionView(it,4) }
             }
+            R.id.submitButton->{
+                if(mSelectedOption==0) {
+                    submitBtn?.text= "SUBMIT"
+                    currentindex++
+                    when {
+                        currentindex <= questionsList!!.size -> {
+                            setQuestion()
+                        }
+                        else ->{
+                            if(mCorrectAnswer>=5) {
+                                val intent = Intent(this, final_congrat_page::class.java)
+                                intent.putExtra(constants.USER_NAME, mUserName)
+                                intent.putExtra(constants.TOTAL_QUESTIONS, questionsList?.size)
+                                intent.putExtra(constants.CORRECT_ANSWER, mCorrectAnswer)
+                                startActivity(intent)
+                                finish()
+                            }
+                            else{
+                                val intent = Intent(this, fail_page::class.java)
+                                intent.putExtra(constants.USER_NAME, mUserName)
+                                intent.putExtra(constants.TOTAL_QUESTIONS, questionsList?.size)
+                                intent.putExtra(constants.CORRECT_ANSWER, mCorrectAnswer)
+                                startActivity(intent)
+                                finish()
+                            }
+                        }
+                    }
+                }
+                else{
+                    val question=questionsList?.get(currentindex-1)
+                    if(question!!.correctAnswer!=mSelectedOption){
+                        answerView(mSelectedOption,R.drawable.wrong_option_bg)
+                    }else{
+                        mCorrectAnswer++
+                    }
+
+                    if(currentindex==questionsList!!.size){
+                        submitBtn?.text= "FINISH"
+                    }
+                    else{
+                        submitBtn?.text="Go To Next Questions"
+                    }
+                    answerView(question.correctAnswer,R.drawable.correct_option_bg)
+                    mSelectedOption=0
+
+                }
+            }
         }
 
+    }
+    private fun answerView(answer:Int,drawableView:Int){
+        when(answer){
+            1->{tvOption1?.background=ContextCompat.getDrawable(this,drawableView)}
+            2->{tvOption2?.background=ContextCompat.getDrawable(this,drawableView)}
+            3->{tvOption3?.background=ContextCompat.getDrawable(this,drawableView)}
+            4->{tvOption4?.background=ContextCompat.getDrawable(this,drawableView)}
+
+        }
     }
 }
